@@ -30,7 +30,7 @@ with open("deck_data.json", "r") as file:
 
 @app.route("/")
 def index():
-    return render_template("index.html", decks=decks)
+    return render_template("templates\index.html", decks=decks)
 
 # @app.route("/get_card", methods=["POST"])
 # def get_card():
