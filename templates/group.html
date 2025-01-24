@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ group_name }}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center" style= "color: white;">{{ group_name }}</h1>
+        <div class="flashcard-container mt-4">
+            <div class="flashcard">
+                <div class="front">
+                    <p id="word"></p>
+                    <button class="btn btn-primary" onclick="flipCard()">Check Answer</button>
+                </div>
+                <div class="back">
+                    <p id="info"></p>
+                    <button class="btn btn-secondary" onclick="flipBack()">Back</button>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <button class="btn btn-warning" onclick="prevCard()">Previous Card</button> 
+            <button class="btn btn-success" onclick="nextCard()">Next Card</button>
+        </div>
+        <div class="text-center mt-3">
+            <a href="/" class="btn btn-outline-dark" style= "color: white;">Back to Groups</a>
+        </div>
+    </div>
+
+    <script>
+        const cards = {{ cards|tojson|safe }};
+        let currentIndex = 0;
+
+        function updateCard() {
+            const card = cards[currentIndex];
+            document.getElementById('word').innerText = card.word;
+            document.getElementById('info').innerHTML = card.info;
+        }
+
+        function flipCard() {
+            document.querySelector('.front').classList.remove('active');
+            document.querySelector('.back').classList.add('active');
+        }
+
+        function flipBack() {
+            document.querySelector('.back').classList.remove('active');
+            document.querySelector('.front').classList.add('active');
+        }
+
+        function nextCard() {
+            currentIndex = (currentIndex + 1) % cards.length;
+            updateCard();
+            flipBack();
+        }
+
+                // Show the previous card
+        function prevCard() {
+            currentIndex = (currentIndex - 1 + cards.length) % cards.length; // Loop to the end if at the start
+            updateCard();
+            // flipBack(); // Reset to front view when moving to the previous card
+        }
+
+        // Initialize the first card
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCard();
+        });
+    </script>
+</body>
+</html>

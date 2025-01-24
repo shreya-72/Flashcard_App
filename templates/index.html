@@ -1,0 +1,91 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcards</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .deck-container { margin-bottom: 20px; }
+        .card { border: 1px solid #ccc; padding: 20px; width: 300px; text-align: center; margin: 20px auto; border-radius: 10px; }
+        .card-front, .card-back { display: none; }
+        .card-front.active, .card-back.active { display: block; }
+        button { margin-top: 10px; padding: 10px 20px; cursor: pointer; border: none; background-color: #007bff; color: #fff; border-radius: 5px; }
+        button:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>Flashcard App</h1>
+    <div id="decks">
+        {% for deck, cards in decks.items() %}
+        <div class="deck-container">
+            <h2>{{ deck }}</h2>
+            <div class="card">
+                <div class="card-front active">
+                    <p id="word-{{ deck }}"></p>
+                    <button onclick="flipCard('{{ deck }}')">Check Answer</button>
+                </div>
+                <div class="card-back">
+                    <p id="info-{{ deck }}"></p>
+                    <button onclick="flipBack('{{ deck }}')">Back</button>
+                </div>
+            </div>
+            <button onclick="nextCard('{{ deck }}')">Next Card</button>
+        </div>
+        {% endfor %}
+    </div>
+    <script>
+
+        let decks = {{ decks|tojson | safe }};
+
+        const currentIndex = {};
+
+        function flipCard(deck) {
+            document.querySelector(`#word-${deck}`).parentElement.classList.remove('active');
+            document.querySelector(`#info-${deck}`).parentElement.classList.add('active');
+        }
+
+        function flipBack(deck) {
+            document.querySelector(`#info-${deck}`).parentElement.classList.remove('active');
+            document.querySelector(`#word-${deck}`).parentElement.classList.add('active');
+        }
+
+        function nextCard(deck) {
+            if (!currentIndex[deck]) currentIndex[deck] = 0;
+            const cardIndex = currentIndex[deck] % decks[deck].length;
+            const card = decks[deck][cardIndex];
+            document.querySelector(`#word-${deck}`).innerText = card.word;
+            document.querySelector(`#info-${deck}`).innerHTML = card.info;
+            currentIndex[deck]++;
+        }
+
+        window.onload = () => {
+            Object.keys(decks).forEach(deck => nextCard(deck));
+        };
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flashcard App</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Flashcard App</h1>
+        <div class="list-group">
+            {% for deck in decks.keys() %}
+            <a href="/group/{{ deck }}" class="list-group-item list-group-item-action">
+                {{ deck }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

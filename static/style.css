@@ -1,0 +1,107 @@
+
+body {
+    /* background-color: #05102c; */
+    /* background: linear-gradient(45deg, #05102c, #1a2b5e); */
+    background: radial-gradient(circle, #05102c, #1a2a44);
+    font-family: 'Arial', sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.flashcard-container {
+    perspective: 1000px;
+}
+
+.flashcard {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s;
+    justify-content: space-between;
+}
+
+.flashcard .front,
+.flashcard .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-grow: 1;
+    justify-content: center;
+    /* position: relative; */
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.flashcard .front {
+    background: linear-gradient(135deg, #6e79cc 0%, #665bbe 100%);
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: bold;
+    height: 300px; /* Set a height for the card */
+    padding: 20px;
+}
+
+.flashcard .back {
+    background: linear-gradient(135deg, #52a8e5 0%, #4479b5 100%);
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: normal;
+    transform: rotateY(180deg);
+    height: 300px; /* Set a height for the card */
+    padding: 20px;
+}
+
+/* .flashcard.active {
+    transform: rotateY(0deg);
+} */
+.flashcard .back.active {
+    transform: rotateY(0deg);
+}
+
+.flashcard .front.active {
+    transform: rotateY(0deg);
+}
+
+
+.flashcard .front.button-container,
+.flashcard .back.button-container {
+    position: absolute;
+    bottom: 20px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+button {
+    margin-top: 15px;
+    font-size: 1rem;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+button.btn-primary {
+    background-color: #4caf50;
+    color: white;
+}
+
+button.btn-secondary {
+    background-color: #f44336;
+    color: white;
+}
